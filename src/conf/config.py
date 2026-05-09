@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     JWT_SECRET: str
     JWT_ALGORITHM: str = "HS256"
     JWT_EXPIRATION_SECONDS: int = 3600
+    CORS_ORIGINS: str = "http://localhost:3000,http://localhost:8000"
 
     MAIL_USERNAME: EmailStr
     MAIL_PASSWORD: str
@@ -22,6 +23,10 @@ class Settings(BaseSettings):
     CLD_NAME: str
     CLD_API_KEY: str
     CLD_API_SECRET: str
+
+    @property
+    def cors_origins(self) -> list[str]:
+        return [origin.strip() for origin in self.CORS_ORIGINS.split(",") if origin.strip()]
 
     model_config = ConfigDict(
         extra="ignore", env_file=".env", env_file_encoding="utf-8", case_sensitive=True

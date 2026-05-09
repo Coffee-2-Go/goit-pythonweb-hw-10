@@ -43,7 +43,7 @@ async def register_user(
 
 
 # Логін користувача
-@router.post("/login", response_model=Token)
+@router.post("/login", response_model=Token, status_code=status.HTTP_201_CREATED)
 async def login_user(
     form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
 ):
